@@ -51,8 +51,8 @@ namespace AirCoonConsole.Handler
 
         /* This just loads the savegame*/
         public SaveGame(String savegamename) {
-        
-        }
+            this.load(savegamename);
+        } // end constructor
 
         /* This copies all the files to a new savegamefolder and then loads the savegame */
         public SaveGame(String hub, String code, String name)
@@ -65,13 +65,25 @@ namespace AirCoonConsole.Handler
 
             // Write files from app and mod folder
             
-        }
+        } // End constructor 
         
+        /* will load an existing savegame, to be called by the Constructors */
         private void load(String savegamename)
         {
 
+        } // end savegameload
+
+
+    } // end class
+
+    public class SaveGameException : Exception
+    {
+        public SaveGameException(string message)
+            : base(message)
+        {
         }
+    } //end Exception
 
 
-    }
-}
+} // end namepsace
+
