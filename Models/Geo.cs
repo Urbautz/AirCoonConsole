@@ -66,18 +66,14 @@ namespace AirCoonConsole.Models
             get;
         }
         // Define which month the spring starts (for weather calculation
-        public int SpringStart
+        public int[] WeatherYear
         {
             get;
         }
 
-        public int WinterStart
+        public Continent(string code, string name, int[] weatheryear)
         {
-            get;
-        }
-
-        public Continent(string code, string name)
-        {
+            // check code
             if (code.Length != 2)
             {
                 throw new SaveGameException("Continent Code " + code + " not valid");
@@ -85,26 +81,16 @@ namespace AirCoonConsole.Models
             this.Code = code;
             this.Name = name;
 
-            this.SpringStart = 0;
-            this.WinterStart = 0;
-
-            switch (this.Code)
+            // check weather
+            foreach (int weather in weatheryear)
             {
-
-                case "AS":
-                case "EU":
-                case "NA":
-                    this.SpringStart = 3;
-                    this.WinterStart = 10;
-                    break;
-                case "OC":
-                case "AF":
-                case "SA":
-                    this.SpringStart = 10;
-                    this.WinterStart = 3;
-                    break;
-            } //end switch
-
+                if (weather < 0 || weather > 1000)
+                {
+                    throw new SaveGameException("Weather for " + code + " not valid: Value: " + weather);
+                }
+            } // end foreach check weather
+            this.WeatherYear = weatheryear;
+            //Debug.Write("MEEEEEHHHHHHHHHHHHHHHRFFFACH?" + this.Code, 1);
             Continents.Add(this.Code, this);
 
         } // end Constructor
@@ -133,6 +119,7 @@ namespace AirCoonConsole.Models
 
         //Continent
         private Continent cont;
+        public Continent Cont { get { return this.cont; } }
         public String ContCode
         {
             get { return cont.Code; }
@@ -140,7 +127,7 @@ namespace AirCoonConsole.Models
             {
                 if (!Continent.Continents.ContainsKey(ContCode))
                 {
-                    cont = new Continent(ContCode, ContCode);
+                    throw new SaveGameException("Continent does not exist");
                 }
                 else
                 {
@@ -162,7 +149,7 @@ namespace AirCoonConsole.Models
 
     public class Region
     {
-        ---- TODO
+        //---- TODO
 
     } // end class Region
 

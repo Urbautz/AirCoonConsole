@@ -1,11 +1,13 @@
-D:\OneDrive\AirCoon\AirCoonConsole\AirCoonConsole\obj\Debug\AirCoonConsole.csprojAssemblyReference.cache
-D:\OneDrive\AirCoon\AirCoonConsole\AirCoonConsole\obj\Debug\AirCoonConsole.csproj.CoreCompileInputs.cache
 D:\OneDrive\AirCoon\AirCoonConsole\AirCoonConsole\bin\Debug\AirCoonConsole.exe.config
 D:\OneDrive\AirCoon\AirCoonConsole\AirCoonConsole\bin\Debug\AirCoonConsole.exe.manifest
 D:\OneDrive\AirCoon\AirCoonConsole\AirCoonConsole\bin\Debug\AirCoonConsole.application
 D:\OneDrive\AirCoon\AirCoonConsole\AirCoonConsole\bin\Debug\AirCoonConsole.exe
 D:\OneDrive\AirCoon\AirCoonConsole\AirCoonConsole\bin\Debug\AirCoonConsole.pdb
+D:\OneDrive\AirCoon\AirCoonConsole\AirCoonConsole\obj\Debug\AirCoonConsole.csprojAssemblyReference.cache
+D:\OneDrive\AirCoon\AirCoonConsole\AirCoonConsole\obj\Debug\AirCoonConsole.csproj.CoreCompileInputs.cache
 D:\OneDrive\AirCoon\AirCoonConsole\AirCoonConsole\obj\Debug\AirCoonConsole.exe.manifest
 D:\OneDrive\AirCoon\AirCoonConsole\AirCoonConsole\obj\Debug\AirCoonConsole.application
 D:\OneDrive\AirCoon\AirCoonConsole\AirCoonConsole\obj\Debug\AirCoonConsole.exe
 D:\OneDrive\AirCoon\AirCoonConsole\AirCoonConsole\obj\Debug\AirCoonConsole.pdb
+D:\OneDrive\AirCoon\AirCoonConsole\AirCoonConsole\bin\Debug\Data\airports.dat
+D:\OneDrive\AirCoon\AirCoonConsole\AirCoonConsole\bin\Debug\Data\continents.dat

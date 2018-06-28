@@ -39,8 +39,13 @@ namespace AirCoonConsole
             Console.WriteLine("OR type in an airline code to load a saive.");
             consoleline = Console.ReadLine();
             if(consoleline.ToLower() == "create")
-            {
-                savegame = Launcher.NewGame();
+            { try
+                {
+                    savegame = Launcher.NewGame();
+                } catch (SaveGameException sge)
+                {
+                    Debug.Write("Error while creating a new savegame. " + sge.Message);
+                } 
             } else
             {
                 savegame = Launcher.LoadGame(consoleline);
