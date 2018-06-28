@@ -94,11 +94,7 @@ namespace AirCoonConsole.Handler
             // Check if valid hub
             
 
-            // Create directory
-            Debug.Write("Creating Directory: " + SaveGameFolder + "\\" + code, 1);
-            ConcreteSaveGameFolder = SaveGameFolder + "\\" + code;
-            Directory.CreateDirectory(ConcreteSaveGameFolder);
-
+            
             // Load Continents
 
             Debug.Write("Loading Continents from " + ConfigPath, 1);
@@ -123,6 +119,13 @@ namespace AirCoonConsole.Handler
             } while (line != null);
             stream = null;
             
+            hier nun Länder, Regionen und Flughäfen laden.
+
+            // Create directory
+            Debug.Write("Creating Directory: " + SaveGameFolder + "\\" + code, 1);
+            ConcreteSaveGameFolder = SaveGameFolder + "\\" + code;
+            Directory.CreateDirectory(ConcreteSaveGameFolder);
+
 
         } // End constructor 
         
