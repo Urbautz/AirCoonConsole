@@ -90,7 +90,17 @@ namespace AirCoonConsole.Models
                 }
             } // end foreach check weather
             this.WeatherYear = weatheryear;
-            //Debug.Write("MEEEEEHHHHHHHHHHHHHHHRFFFACH?" + this.Code, 1);
+
+            // Database Insert
+            String[] dbvalues = new string[14];
+            dbvalues[0] = this.Code;
+                this.Name,
+                foreach(int weather in this.WeatherYear)
+                {
+                    sdfsdafsdf
+                }
+            };
+
             Continents.Add(this.Code, this);
 
         } // end Constructor

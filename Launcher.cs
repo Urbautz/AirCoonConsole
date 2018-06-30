@@ -44,13 +44,13 @@ namespace AirCoonConsole
                     savegame = Launcher.NewGame();
                 } catch (SaveGameException sge)
                 {
-                    Debug.Write("Error while creating a new savegame. " + sge.Message);
+                    Debug.Write("Error while creating a new savegame. " + sge.Message, 1);
                 } 
             } else
             {
                 savegame = Launcher.LoadGame(consoleline);
             }
-            Debug.Write("Gameload successfull!");
+            Debug.Write("Gameload successfull!", 1);
 
            
 
@@ -61,14 +61,14 @@ namespace AirCoonConsole
 
         public static SaveGame LoadGame(String gamename)
         {
-            Debug.Write("Will load" + gamename + "...",1);
+            Debug.Write("Will load" + gamename + "...",4);
             
             return new SaveGame(gamename);
         }
 
         public static SaveGame NewGame()
         {
-            Debug.Write("Will create new game", 1);
+            Debug.Write("Will create new game", 4);
 
             Console.WriteLine("Please enter the Hub-Code you want to start your airline, then with a blank the 3 digit code and the name");
             Console.WriteLine("Example:");
