@@ -1,0 +1,250 @@
+Alpha-2 code,English short name,Continent
+AF,Afghanistan,AS
+AX,Åland Islands,EU
+AL,Albania,EU
+DZ,Algeria,AF
+AS,American Samoa,NA
+AD,Andorra,EU
+AO,Angola,AF
+AI,Anguilla,NA
+AQ,Antarctica,OZ
+AG,Antigua and Barbuda,NA
+AR,Argentina,SA
+AM,Armenia,EU
+AW,Aruba,SA
+AU,Australia,OZ
+AT,Austria,EU
+AZ,Azerbaijan,EU
+BS,Bahamas (the),NA
+BH,Bahrain,AS
+BD,Bangladesh,AS
+BB,Barbados,NA
+BY,Belarus,EU
+BE,Belgium,EU
+BZ,Belize,AF
+BJ,Benin,AF
+BM,Bermuda,NA
+BT,Bhutan,AS
+BO,Bolivia (Plurinational State of),SA
+BQ,Bonaire_ Sint Eustatius and Saba,NA
+BA,Bosnia and Herzegovina,EU
+BW,Botswana,AF
+BV,Bouvet Island,AF
+BR,Brazil,SA
+IO,British Indian Ocean Territory (the),AS
+BN,Brunei Darussalam,AS
+BG,Bulgaria,EU
+BF,Burkina Faso,AS
+BI,Burundi,AF
+CV,Cabo Verde,AF
+KH,Cambodia,AS
+CM,Cameroon,AF
+CA,Canada,NA
+KY,Cayman Islands (the),NA
+CF,Central African Republic (the),AF
+TD,Chad,AF
+CL,Chile,SA
+CN,China,AS
+CX,Christmas Island,OZ
+CC,Cocos (Keeling) Islands (the),OZ
+CO,Colombia,SA
+KM,Comoros (the),OZ
+CD,Congo (the Democratic Republic of the),AF
+CG,Congo (the),AF
+CK,Cook Islands (the),OZ
+CR,Costa Rica,NA
+CI,Côte d'Ivoire,AF
+HR,Croatia,EU
+CU,Cuba,NA
+CW,Curaçao,SA
+CY,Cyprus,EU
+CZ,Czechia,EU
+DK,Denmark,EU
+DJ,Djibouti,AF
+DM,Dominica,NA
+DO,Dominican Republic (the),NA
+EC,Ecuador,SA
+EG,Egypt,AF
+SV,El Salvador,SA
+GQ,Equatorial Guinea,SA
+ER,Eritrea,AF
+EE,Estonia,EU
+ET,Ethiopia,AF
+FK,Falkland Islands (the) [Malvinas],SA
+FO,Faroe Islands (the),OZ
+FJ,Fiji,OZ
+FI,Finland,EU
+FR,France,EU
+GF,French Guiana,SA
+PF,French Polynesia,OZ
+TF,French Southern Territories (the),OZ
+GA,Gabon,AF
+GM,Gambia (the),AF
+GE,Georgia,EU
+DE,Germany,EU
+GH,Ghana,AF
+GI,Gibraltar,EU
+GR,Greece,EU
+GL,Greenland,EU
+GD,Grenada,SA
+GP,Guadeloupe,NA
+GU,Guam,OZ
+GT,Guatemala,NA
+GG,Guernsey,EU
+GN,Guinea,AF
+GW,Guinea-Bissau,AF
+GY,Guyana,SA
+HT,Haiti,NA
+HM,Heard Island and McDonald Islands,OZ
+VA,Holy See (the),OZ
+HN,Honduras,SA
+HK,Hong Kong,AS
+HU,Hungary,EU
+IS,Iceland,EU
+IN,India,AS
+ID,Indonesia,AS
+IR,Iran (Islamic Republic of),AS
+IQ,Iraq,AS
+IE,Ireland,EU
+IM,Isle of Man,EU
+IL,Israel,AS
+IT,Italy,EU
+JM,Jamaica,NA
+JP,Japan,AS
+JE,Jersey,EU
+JO,Jordan,AS
+KZ,Kazakhstan,AS
+KE,Kenya,AF
+KI,Kiribati,OZ
+KP,Korea (the Democratic People's Republic of),AS
+KR,Korea (the Republic of),AS
+KW,Kuwait,AS
+KG,Kyrgyzstan,AS
+LA,Lao People's Democratic Republic (the),AF
+LV,Latvia,EU
+LB,Lebanon,AF
+LS,Lesotho,AF
+LR,Liberia,AF
+LY,Libya,AF
+LI,Liechtenstein,EU
+LT,Lithuania,EU
+LU,Luxembourg,EU
+MO,Macao,AS
+MK,Macedonia (the former Yugoslav Republic of),EU
+MG,Madagascar,AF
+MW,Malawi,AF
+MY,Malaysia,AS
+MV,Maldives,NA
+ML,Mali,AF
+MT,Malta,EU
+MH,Marshall Islands (the),OZ
+MQ,Martinique,NA
+MR,Mauritania,AF
+MU,Mauritius,AF
+YT,Mayotte,AF
+MX,Mexico,NA
+FM,Micronesia (Federated States of),AS
+MD,Moldova (the Republic of),EU
+MC,Monaco,EU
+MN,Mongolia,AS
+ME,Montenegro,EU
+MS,Montserrat,AF
+MA,Morocco,AF
+MZ,Mozambique,AF
+MM,Myanmar,AS
+NA,Namibia,AF
+NR,Nauru,AF
+NP,Nepal,AS
+NL,Netherlands (the),EU
+NC,New Caledonia,OZ
+NZ,New Zealand,OZ
+NI,Nicaragua,AF
+NE,Niger (the),AF
+NG,Nigeria,AF
+NU,Niue,AF
+NF,Norfolk Island,NA
+MP,Northern Mariana Islands (the),OZ
+NO,Norway,EU
+OM,Oman,AS
+PK,Pakistan,AS
+PW,Palau,OZ
+PS,Palestine,AS
+PA,Panama,SA
+PG,Papua New Guinea,OZ
+PY,Paraguay,NA
+PE,Peru,SA
+PH,Philippines (the),OZ
+PN,Pitcairn,OZ
+PL,Poland,EU
+PT,Portugal,EU
+PR,Puerto Rico,NA
+QA,Qatar,AS
+RE,Réunion,AF
+RO,Romania,EU
+RU,Russian Federation (the),AS
+RW,Rwanda,AF
+BL,Saint Barthélemy,OZ
+SH,Saint Helena; Ascension and Tristan da Cunha,AF
+KN,Saint Kitts and Nevis,NA
+LC,Saint Lucia,NA
+MF,Saint Martin (French part),NA
+PM,Saint Pierre and Miquelon,NA
+VC,Saint Vincent and the Grenadines,NA
+WS,Samoa,AF
+SM,San Marino,EU
+ST,Sao Tome and Principe,AF
+SA,Saudi Arabia,AS
+SN,Senegal,AF
+RS,Serbia,EU
+SC,Seychelles,AF
+SL,Sierra Leone,AF
+SG,Singapore,AS
+SX,Sint Maarten (Dutch part),OZ
+SK,Slovakia,EU
+SI,Slovenia,EU
+SB,Solomon Islands,OZ
+SO,Somalia,AF
+ZA,South Africa,AF
+GS,South Georgia and the South Sandwich Islands,OZ
+SS,South Sudan,AF
+ES,Spain,EU
+LK,Sri Lanka,AS
+SD,Sudan (the),AS
+SR,Suriname,AF
+SJ,Svalbard and Jan Mayen,AF
+SZ,Swaziland,AF
+SE,Sweden,EU
+CH,Switzerland,EU
+SY,Syrian Arab Republic,AS
+TW,Taiwan (Province of China),AS
+TJ,Tajikistan,AS
+TZ,Tanzania; United Republic of,AF
+TH,Thailand,AS
+TL,Timor-Leste,AF
+TG,Togo,AF
+TK,Tokelau,OZ
+TO,Tonga,AF
+TT,Trinidad and Tobago,AF
+TN,Tunisia,AF
+TR,Turkey,EU
+TM,Turkmenistan,AS
+TC,Turks and Caicos Islands (the),NA
+TV,Tuvalu,AF
+UG,Uganda,AF
+UA,Ukraine,EU
+AE,United Arab Emirates (the),AS
+GB,United Kingdom of Great Britain and Northern Ireland (the),EU
+UM,United States Minor Outlying Islands (the),NA
+US,United States of America (the),NA
+UY,Uruguay,SA
+UZ,Uzbekistan,AS
+VU,Vanuatu,AF
+VE,Venezuela (Bolivarian Republic of),SA
+VN,Viet Nam,AS
+VG,Virgin Islands (British),SA
+VI,Virgin Islands (U.S.),SA
+WF,Wallis and Futuna,OZ
+EH,Western Sahara*,AF
+YE,Yemen,AS
+ZM,Zambia,AF
+ZW,Zimbabwe,AF

@@ -52,24 +52,35 @@ namespace AirCoonConsole.Handler
 
         }
 
-        public static void CommandSimpleInsert(String table, List<string> values)
+        public static void SimpleInsert(String table, Dictionary<String, String> binds)
         {
-            String qry = "INSERT INTO " + table + " VALUES (";
-            bool previous = false;
-            foreach(String value in values)
+            if (binds != null && binds.Count() >= 1)
             {
-                if(previous)
+
+                String qry = "INSERT INTO " + table + " VALUES (";
+                int previous = 0;
+                foreach (KeyValuePair<string, string> pair in binds)
                 {
-                    qry += " , ";
-                    previous = true;
+                    if(previous > 0 && previous < binds.Count())
+                    {
+                        qry += ", ";
+                       
+                    }
+                    
+                    previous++;
+                   
+                    qry += "@" + pair.Key;
                 }
-                
-                qry += "\"" + value + "\" ";
+                qry += ");";
+                //Debug.Write(qry,3);
+                CommandQuery(qry, binds);
+
+
+            } else
+            {
+                throw new DataBaseException("Not enough arguments for Insert");
             }
-            qry += ");";
-
-        }
-
+        } // ENd Command Simple Insert
         public static void close()
         {
             conn.Close();

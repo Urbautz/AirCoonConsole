@@ -35,7 +35,7 @@ namespace AirCoonConsole.Handler
                 return null;
             }
             
-            String[] splitted = LastLine.Split(new Char[] { ',', ';' });
+            String[] splitted = LastLine.Split(new Char[] { ',' });
             if (splitted.Length == 0)
             {
                 Debug.Write("Empty line read", 1);

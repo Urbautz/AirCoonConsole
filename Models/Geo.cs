@@ -55,7 +55,7 @@ namespace AirCoonConsole.Models
 
     public class Continent {
 
-        public static Dictionary<String, Continent> Continents = new Dictionary<String, Continent>();
+        
 
         public string Code
         {
@@ -71,7 +71,7 @@ namespace AirCoonConsole.Models
             get;
         }
 
-        public Continent(string code, string name, int[] weatheryear)
+        public Continent(string code, string name, int[] weatheryear, SaveGame sg, bool SaveToDatabase)
         {
             // check code
             if (code.Length != 2)
@@ -92,68 +92,66 @@ namespace AirCoonConsole.Models
             this.WeatherYear = weatheryear;
 
             // Database Insert
-            String[] dbvalues = new string[14];
-            dbvalues[0] = this.Code;
-                this.Name,
-                foreach(int weather in this.WeatherYear)
+            if (SaveToDatabase)
+            {
+                Dictionary<string, string> dbvalues = new Dictionary<string, string>
                 {
-                    sdfsdafsdf
-                }
-            };
+                    ["code"] = this.Code,
+                    ["name"] = this.Name
+                };
 
-            Continents.Add(this.Code, this);
+                int i = 1;
+                foreach (int weather in this.WeatherYear)
+                {
+                    dbvalues.Add("w" + i, weather.ToString());
+                    i++;
+                }
+                Database.SimpleInsert("continent", dbvalues);
+            }
+            sg.Continents.Add(this.Code, this);
 
         } // end Constructor
 
 
 
 
-    }
+    } // end class Continent
 
-    public class Country
+    public class Country 
     {
 
         public static Dictionary<String, Country> Countries = new Dictionary<String, Country>();
 
         // Country Code
-        private String code;
-        public String Code
-        {
-            get { return code; }
-            set { if (Code.Length == 2) code = Code.ToUpper(); }
-        }
+        public String Code;
 
         // Country Name
-        private String name;
-        public String Name { get; set; }
+        public String Name;
 
         //Continent
-        private Continent cont;
-        public Continent Cont { get { return this.cont; } }
-        public String ContCode
-        {
-            get { return cont.Code; }
-            set
-            {
-                if (!Continent.Continents.ContainsKey(ContCode))
-                {
-                    throw new SaveGameException("Continent does not exist");
-                }
-                else
-                {
-                    cont = Continent.Continents[ContCode];
-                }
-            } // ENd set
-        } // End ContCode
 
-        public Country(String code, String name, String continent)
+        public Continent Continent;
+
+
+        public Country(String code, String name, Continent continent, SaveGame sg, bool SaveToDatabase)
         {
             this.Code = code;
             this.Name = name;
-            this.ContCode = continent;
+            this.Continent = continent;
 
-            Countries.Add(this.Code, this);
-        }
+            if (SaveToDatabase)
+            {
+                Dictionary<string, string> dbvalues = new Dictionary<string, string>
+                {
+                    ["code"] = this.Code,
+                    ["name"] = this.Name,
+                    ["Continent"] = this.Continent.Code
+                };
+                Database.SimpleInsert("country", dbvalues);
+            }
+
+            sg.Countries.Add(this.Code, this);
+        } // End Constructor
 
     }// end Country
 

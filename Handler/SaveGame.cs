@@ -9,7 +9,7 @@ using AirCoonConsole.Models;
 
 namespace AirCoonConsole.Handler
 {
-    class SaveGame
+    public class SaveGame
     {
 
         private List<String> AllSaveGameNames;
@@ -17,6 +17,10 @@ namespace AirCoonConsole.Handler
         private String[] SaveGamePath = new String[] { "My Games", "AirCoon", "saves"};
         private String ConcreteSaveGameFolder;
         private String ConfigPath;
+
+
+        public Dictionary<String, Continent> Continents = new Dictionary<String, Continent>();
+        public Dictionary<String, Country> Countries = new Dictionary<String, Country>();
 
         private SaveGame()
         {
@@ -80,6 +84,9 @@ namespace AirCoonConsole.Handler
             this.load(savegamename);
         } // end constructor
 
+
+
+
         /* This copies all the files to a new savegamefolder and then loads the savegame */
         public SaveGame(String hub, String code, String name)
         {
@@ -104,13 +111,14 @@ namespace AirCoonConsole.Handler
             }
 
 
-
+            // Check Savegamefolder
 
             if (Directory.Exists(SaveGameFolder + "\\" + name))
             {
                 throw new SaveGameException("Savegame" + code + " already exists.");
             }
             Debug.Write("Check Airlinecode finsihed", 2);
+
 
             // Check if valid hub
 
@@ -140,13 +148,13 @@ namespace AirCoonConsole.Handler
             qry = "CREATE TABLE IF NOT EXISTS continent ("
                   + "code TEXT PIMARY KEY,"
                   + "name TEXT,";
-            for (int i = 1; i<13, i++)
+            for (int i = 1; i<13; i++)
             {
-                qry += "weather" + i + ",";
+                qry += "weather" + i; 
+                if(i<12) qry += ", ";
             }
             qry += ");";
-                Debug.Write("Query: " + qry);
-
+            Database.CommandQuery(qry, null);
 
             // Load Continents
 
@@ -163,15 +171,37 @@ namespace AirCoonConsole.Handler
                 for (int i = 2; i < 14; i++)
                 {
                     weather[i - 2] = int.Parse(line[i]);
-                    //Debug.Write("weather for month" + (i - 1) + ": " + (weather[i - 2] +1), 3);
-
                 }
-                Continent c = new Continent(contcode, contname, weather);
+                Continent c = new Continent(contcode, contname, weather, this, true);
                 line = csv.getNextLine();
             } while (line != null);
             stream = null;
 
-            //hier nun Länder, Regionen und Flughäfen laden.
+            
+            // Load Countries 
+            qry = "CREATE TABLE IF NOT EXISTS country ("
+                  + "code TEXT PIMARY KEY,"
+                  + "name TEXT,"
+                  + "continent TEXT"
+                  + ");";
+            Database.CommandQuery(qry, null);
+
+            Debug.Write("Loading Countries from " + ConfigPath, 3);
+            stream = new StreamReader(ConfigPath + "\\Countries.dat");
+            csv = new DataCsvLoader(stream, true);
+            line = csv.getNextLine();
+            while(line != null)
+            {   
+                if (!this.Continents.ContainsKey(line[2])) {
+                    throw new Exception("Continent not found: " + line[3]);
+                }
+                Continent cont = this.Continents[line[2]];
+                Country country = new Country(line[0], line[1], cont, this, false);
+                //Debug.Write("Country created: " + country.Code, 4);
+                line = csv.getNextLine();
+            }
+
+            //Regionen und Flughäfen laden.
 
         } // End constructor 
 
