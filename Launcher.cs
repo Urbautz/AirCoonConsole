@@ -21,7 +21,7 @@ namespace AirCoonConsole
             // Load config
 
             // Savegames
-            List<String> savegames = SaveGame.getAvailibleSavegames();
+            List<String> savegames = SaveGame.GetAvailibleSavegames();
             if (savegames.Count == 0)
             {
                 Console.WriteLine("No Savegames found.");
@@ -44,31 +44,31 @@ namespace AirCoonConsole
                     savegame = Launcher.NewGame();
                 } catch (SaveGameException sge)
                 {
-                    Debug.Write("Error while creating a new savegame. " + sge.Message, 1);
+                    Debug.Write("Error while creating a new savegame. " + sge.Message, 0);
                 } 
             } else
             {
                 savegame = Launcher.LoadGame(consoleline);
             }
-            Debug.Write("Gameload successfull!", 1);
+            Debug.Write("Gameload successfull!", 0);
 
            
 
-            Debug.Write("Here comes the tickstarter ...",1);
-            System.Threading.Thread.Sleep(5000);
+            Debug.Write("Here comes the tickstarter ...",0);
+            //System.Threading.Thread.Sleep(5000);
 
         } // end method
 
         public static SaveGame LoadGame(String gamename)
         {
-            Debug.Write("Will load" + gamename + "...",4);
+            
             
             return new SaveGame(gamename);
         }
 
         public static SaveGame NewGame()
         {
-            Debug.Write("Will create new game", 4);
+            
 
             Console.WriteLine("Please enter the Hub-Code you want to start your airline, then with a blank the 3 digit code and the name");
             Console.WriteLine("Example:");

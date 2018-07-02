@@ -19,7 +19,6 @@ namespace AirCoonConsole.Handler
             if(stripfirstline)
             {
                 LastLine = Stream.ReadLine();
-                Debug.Write("CSV Line read", 2);
                 
             }
         }

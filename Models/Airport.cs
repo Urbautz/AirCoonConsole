@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AirCoonConsole.Handler;
+using AirCoonConsole.Models.Geo;
 
 namespace AirCoonConsole.Models
 {

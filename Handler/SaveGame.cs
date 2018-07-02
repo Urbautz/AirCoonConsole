@@ -1,14 +1,15 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using AirCoonConsole.Models;
+using AirCoonConsole.Models.Geo;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace AirCoonConsole.Handler
 {
+    [Serializable]
     public class SaveGame
     {
 
@@ -18,9 +19,9 @@ namespace AirCoonConsole.Handler
         private String ConcreteSaveGameFolder;
         private String ConfigPath;
 
-
         public Dictionary<String, Continent> Continents = new Dictionary<String, Continent>();
         public Dictionary<String, Country> Countries = new Dictionary<String, Country>();
+        public Dictionary<String, Region> Regions = new Dictionary<String, Region>();
 
         private SaveGame()
         {
@@ -40,7 +41,7 @@ namespace AirCoonConsole.Handler
             
             AllSaveGameNames = new List<String>();
             SaveGameFolder = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            Debug.Write("Savegamefolder: " + SaveGameFolder);
+            //
 
             if (!Directory.Exists(SaveGameFolder))
             {
@@ -60,7 +61,7 @@ namespace AirCoonConsole.Handler
 
         } // End set path
 
-        public static List<String> getAvailibleSavegames()
+        public static List<String> GetAvailibleSavegames()
         {
             SaveGame sg = new SaveGame();
             sg.SetPaths();
@@ -81,7 +82,9 @@ namespace AirCoonConsole.Handler
 
         /* This just loads the savegame*/
         public SaveGame(String savegamename) {
-            this.load(savegamename);
+            SaveGamePublic.SaveGame = this;
+            this.Load(savegamename);
+            
         } // end constructor
 
 
@@ -90,14 +93,15 @@ namespace AirCoonConsole.Handler
         /* This copies all the files to a new savegamefolder and then loads the savegame */
         public SaveGame(String hub, String code, String name)
         {
+            SaveGamePublic.SaveGame = this;
             this.SetPaths();
             // Get Config Path
             // Check Code
             // check if name already exists
-            Debug.Write("checking airlinecode", 2);
-            if(code.Length != 3)
+
+            if(code.Length < 2 && code.Length > 3)
             {
-                throw new SaveGameException("Code " + code + " must be 3 digits long");
+                throw new SaveGameException("Code " + code + " must be 2 or 3 digits long");
             }
             code = code.ToUpper();
 
@@ -117,48 +121,20 @@ namespace AirCoonConsole.Handler
             {
                 throw new SaveGameException("Savegame" + code + " already exists.");
             }
-            Debug.Write("Check Airlinecode finsihed", 2);
 
 
             // Check if valid hub
 
             // Create directory
-            Debug.Write("Creating Directory: " + SaveGameFolder + "\\" + code, 2);
+            //Debug.Write("Creating Directory: " + SaveGameFolder + "\\" + code, 2);
             ConcreteSaveGameFolder = SaveGameFolder + "\\" + code;
             Directory.CreateDirectory(ConcreteSaveGameFolder);
 
-            Debug.Write("Database creation started.",2);
-            // Connect to DB
-            Database.connect(ConcreteSaveGameFolder);
 
-            // Create Version Table
-            Debug.Write("Write Version Information.", 2);
-            string qry = "CREATE TABLE IF NOT EXISTS version (version TEXT PRIMARY KEY);";
-            Database.CommandQuery(qry, null);
-
-            qry = "INSERT INTO version (version) VALUES (@version);";
-            Dictionary<string, string> binds = new Dictionary<string, string>
-            {
-                { "version", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() }
-            };
-            Database.CommandQuery(qry, binds);
-
-            // Create Continents Table
-            Debug.Write("Continents creation", 2);
-            qry = "CREATE TABLE IF NOT EXISTS continent ("
-                  + "code TEXT PIMARY KEY,"
-                  + "name TEXT,";
-            for (int i = 1; i<13; i++)
-            {
-                qry += "weather" + i; 
-                if(i<12) qry += ", ";
-            }
-            qry += ");";
-            Database.CommandQuery(qry, null);
 
             // Load Continents
 
-            Debug.Write("Loading Continents from " + ConfigPath, 3);
+            Debug.Write("Loading Continents", 3);
             StreamReader stream = new StreamReader(ConfigPath + "\\Continents.dat");
             DataCsvLoader csv = new DataCsvLoader(stream, true);
             List<Continent> continents = new List<Continent>();
@@ -172,21 +148,14 @@ namespace AirCoonConsole.Handler
                 {
                     weather[i - 2] = int.Parse(line[i]);
                 }
-                Continent c = new Continent(contcode, contname, weather, this, true);
+                Continent c = new Continent(contcode, contname, weather);
                 line = csv.getNextLine();
             } while (line != null);
             stream = null;
 
-            
-            // Load Countries 
-            qry = "CREATE TABLE IF NOT EXISTS country ("
-                  + "code TEXT PIMARY KEY,"
-                  + "name TEXT,"
-                  + "continent TEXT"
-                  + ");";
-            Database.CommandQuery(qry, null);
 
-            Debug.Write("Loading Countries from " + ConfigPath, 3);
+            // Initialize Countries
+            Debug.Write("Loading Countries", 3);
             stream = new StreamReader(ConfigPath + "\\Countries.dat");
             csv = new DataCsvLoader(stream, true);
             line = csv.getNextLine();
@@ -196,23 +165,92 @@ namespace AirCoonConsole.Handler
                     throw new Exception("Continent not found: " + line[3]);
                 }
                 Continent cont = this.Continents[line[2]];
-                Country country = new Country(line[0], line[1], cont, this, false);
-                //Debug.Write("Country created: " + country.Code, 4);
+                Country country = new Country(line[0], line[1], cont);
                 line = csv.getNextLine();
             }
 
-            //Regionen und Flughäfen laden.
+            // Initialize Regions
+            Debug.Write("Loading Regions", 3);
+            stream = new StreamReader(ConfigPath + "\\regions.dat");
+            csv = new DataCsvLoader(stream, true);
+            line = csv.getNextLine();
+            while (line != null)
+            {
+                if (!this.Countries.ContainsKey(line[1]))
+                {
+                    throw new Exception("Country not found: " + line[1]);
+                }
+                Country c = this.Countries[line[1]];
+                Region r = new Region(line[0], line[2], c);
+                line = csv.getNextLine();
+            }
+            // Wetter initalisieren
 
+
+            //Regionen und Flughäfen laden.
+            Debug.Write("Load complete", 1);
+            this.Save();
+            
         } // End constructor 
 
         /* will load an existing savegame, to be called by the Constructors */
-        private void load(String savegamename)
+        private void Load(String savegamename)
         {
             this.SetPaths();
         } // end savegameload
 
 
+        // Saves the game
+        public void Save()
+        {
+            // Inspired by https://www.codeproject.com/Articles/1789/Object-Serialization-using-C
+            this.SetPaths();
+            BinaryFormatter bformatter = new BinaryFormatter();
+            Debug.Write("Saving ...", 1);
+
+            Debug.Write("Saving Continents", 2);
+            // Continents
+            using (Stream stream = File.Open(this.ConcreteSaveGameFolder + "\\continents.dat", FileMode.Create))
+            {
+                bformatter.Serialize(stream, this.Continents);
+                stream.Close();
+            }
+
+            Debug.Write("Saving Countries", 2);
+            // Countries
+            using (Stream stream = File.Open(this.ConcreteSaveGameFolder + "\\countries.dat", FileMode.Create))
+            {
+                bformatter.Serialize(stream, this.Countries);
+                stream.Close();
+            }
+
+            Debug.Write("Saving Regions", 2);
+            // Regions
+            using (Stream stream = File.Open(this.ConcreteSaveGameFolder + "\\regions.dat", FileMode.Create))
+            {
+                bformatter.Serialize(stream, this.Regions);
+                stream.Close();
+            }
+
+            Debug.Write("Saved!", 1);
+
+            /*
+             // Loadtest Region
+            this.Regions = null;
+            Stream stream2 = File.Open(this.ConcreteSaveGameFolder + "\\regions.dat", FileMode.Open);
+            this.Regions = (Dictionary<string, Region>) bformatter.Deserialize(stream2);
+            Debug.Write("Regionloader test: " + Regions["AE-FU"].Name);
+            Console.ReadLine();
+             */
+
+        }
+
     } // end class
+
+    public class SaveGamePublic
+    {
+        public static SaveGame SaveGame;
+    }
 
     public class SaveGameException : Exception
     {

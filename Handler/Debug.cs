@@ -7,7 +7,7 @@ public static class Debug
     //Sleeptimes per Debug-Level
     private static int DebugSleepTime0 = 5000;
     private static int DebugSleepTime1 = 1000;
-    private static int DebugSleepTime2 = 500;
+    private static int DebugSleepTime2 = 1;
     private static int DebugSleepTime3 = 1;
     private static String DebugSeparator0 = "_";
     private static String DebugSeparator1 = "__";

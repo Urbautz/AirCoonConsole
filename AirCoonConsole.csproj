@@ -88,13 +88,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Handler\Database.cs" />
     <Compile Include="Handler\DataCsvLoader.cs" />
     <Compile Include="Handler\SaveGame.cs" />
     <Compile Include="Handler\Debug.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="Models\Airport.cs" />
-    <Compile Include="Models\Geo.cs" />
+    <Compile Include="Models\Geo\Country.cs" />
+    <Compile Include="Models\Geo\Continent.cs" />
+    <Compile Include="Models\Geo\GeoCoordinate.cs" />
+    <Compile Include="Models\Geo\Region.cs" />
+    <Compile Include="Models\Weather.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +110,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\countries.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\regions.dat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
