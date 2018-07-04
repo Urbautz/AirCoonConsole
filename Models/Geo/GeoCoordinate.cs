@@ -3,36 +3,58 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace AirCoonConsole.Models.Geo
 {
-    class GeoCoordinate
-
+    [Serializable]
+    public class GeoCoordinate
+        : ISerializable
     {
-        private double lati;
-        public double Lati
-        { get; set; }
+        readonly Decimal Latitude;
 
-        private double longi;
-        public double Longi
-        { get; set; }
+        readonly Decimal Longitude;
+
+        readonly int Altitude;
 
 
-
-        public GeoCoordinate(double lati, double longi)
+        public GeoCoordinate(Decimal latitude, Decimal longitude, int altitude)
         {
-            this.Lati = lati;
-            this.Longi = longi;
+            this.Latitude = latitude;
+            this.Longitude = longitude;
+            this.Altitude = altitude;
         }
 
-        public double calculate_distance(GeoCoordinate other)
+
+        // Deserializer
+        public GeoCoordinate(SerializationInfo info, StreamingContext ctxt)
+        {
+            this.Latitude= info.GetDecimal("Latitude");
+            this.Longitude = info.GetDecimal("Longitude");
+            this.Altitude = info.GetInt32("Altitude");
+        }
+
+        // Serializer
+        public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        {
+            info.AddValue("Latitude", this.Latitude);
+            info.AddValue("Longitude", this.Longitude);
+            info.AddValue("Altitude", this.Altitude);
+        }
+
+
+
+
+
+            public double calculate_distance(GeoCoordinate other)
         {
             double circumference = 40000.0; // Earth's circumference at the equator in km
             double distance = 0.0;
-            double latitude1Rad = DegreesToRadians(this.Lati);
-            double latititude2Rad = DegreesToRadians(other.Lati);
-            double longitude1Rad = DegreesToRadians(this.Longi);
-            double longitude2Rad = DegreesToRadians(other.Lati);
+            double latitude1Rad = DegreesToRadians(this.Latitude);
+            double latititude2Rad = DegreesToRadians(other.Latitude);
+            double longitude1Rad = DegreesToRadians(this.Longitude);
+            double longitude2Rad = DegreesToRadians(other.Latitude);
             double logitudeDiff = Math.Abs(longitude1Rad - longitude2Rad);
 
             if (logitudeDiff > Math.PI)
@@ -53,10 +75,8 @@ namespace AirCoonConsole.Models.Geo
 
 
 
-        private static double DegreesToRadians(double angle)
-        {
-            return Math.PI * angle / 180.0;
-        }
+        private static Double DegreesToRadians(Decimal angle) => 
+            (Double)(Math.PI * (Double)angle / 180.0);
 
     } // end class
 } // end Namespace

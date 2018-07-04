@@ -22,6 +22,7 @@ namespace AirCoonConsole.Handler
         public Dictionary<String, Continent> Continents = new Dictionary<String, Continent>();
         public Dictionary<String, Country> Countries = new Dictionary<String, Country>();
         public Dictionary<String, Region> Regions = new Dictionary<String, Region>();
+        public Dictionary<String, Airport> Airports = new Dictionary<string, Airport>();
 
         private SaveGame()
         {
@@ -184,10 +185,55 @@ namespace AirCoonConsole.Handler
                 Region r = new Region(line[0], line[2], c);
                 line = csv.getNextLine();
             }
-            // Wetter initalisieren
-
 
             //Regionen und Flughäfen laden.
+            Debug.Write("Loading Airports", 3);
+
+            stream = new StreamReader(ConfigPath + "\\airports.dat");
+            csv = new DataCsvLoader(stream, true);
+            line = csv.getNextLine();
+            while (line != null)
+            {
+                if (!this.Regions.ContainsKey(line[2]))
+                {
+                    throw new Exception("Region not found: " + line[2]);
+                }
+                Region r = this.Regions[line[2]];
+                bool Ishub;
+                if (line[5] == "1")
+                    Ishub = true;
+                else Ishub = false;
+
+                GeoCoordinate g;
+                short RunwayLength;
+                short RunwayCount;
+                short slots;
+                int passengers;
+
+                try
+                {
+                    g = new GeoCoordinate(Decimal.Parse(line[6]), Decimal.Parse(line[7]), Int32.Parse(line[8]));
+                    RunwayLength = Int16.Parse(line[10]);
+                    RunwayCount = Int16.Parse(line[11]);
+                    slots = Int16.Parse(line[12]);
+                    passengers = Int32.Parse(line[13]);
+
+                } catch (FormatException e)
+                {
+                    Debug.Write(e.Message);
+                    throw new SaveGameException("Airport data corrupted. Airport: " + line[0] + "Not a number:" 
+                                + line[6] + ", " + line[8] + ", " + line[8] + ", "+ line[10] + ", "+ line[11] + ", " + line[12] + ", " + line[13]
+                                );
+                }
+
+                Airport a = new Airport(line[0], line[1], line[4], r, Ishub, g, line[9], line[3], RunwayLength, RunwayCount, slots, passengers);
+
+
+                line = csv.getNextLine();
+            }
+
+
+
             Debug.Write("Load complete", 1);
             this.Save();
             
@@ -232,8 +278,6 @@ namespace AirCoonConsole.Handler
                 stream.Close();
             }
 
-            Debug.Write("Saved!", 1);
-
             /*
              // Loadtest Region
             this.Regions = null;
@@ -243,6 +287,21 @@ namespace AirCoonConsole.Handler
             Console.ReadLine();
              */
 
+            Debug.Write("Saving Airports", 2);
+            using (Stream stream = File.Open(this.ConcreteSaveGameFolder + "\\airports.dat", FileMode.Create))
+            {
+                bformatter.Serialize(stream, this.Airports);
+                stream.Close();
+            }
+
+            // Loadtest Region
+            this.Airports = null;
+            Stream stream2 = File.Open(this.ConcreteSaveGameFolder + "\\airports.dat", FileMode.Open);
+            this.Airports = (Dictionary<string, Airport>)bformatter.Deserialize(stream2);
+            Debug.Write("Regionloader test: " + this.Airports["FRA"].Size);
+            Console.ReadLine();
+
+            Debug.Write("Saved!", 1);
         }
 
     } // end class
